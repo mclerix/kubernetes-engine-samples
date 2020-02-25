@@ -15,7 +15,7 @@ steps:
 #   - 'CLOUDSDK_CONTAINER_CLUSTER=gke-loreal'
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'Dockerfile', '--tag=gcr.io/$PROJECT_ID/hello-app:$SHORT_SHA', '.']
+  args: ['build', '-f', 'Dockerfile', '--tag=gcr.io/$PROJECT_ID/hello-app:$SHORT_SHA', './hello-app']
   timeout: 500s
 
 - name: 'gcr.io/cloud-builders/docker'
