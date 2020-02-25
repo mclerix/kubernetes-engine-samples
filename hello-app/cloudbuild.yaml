@@ -26,7 +26,6 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
   - 'CLOUDSDK_CONTAINER_CLUSTER=gke-loreal'
-dir: hello-app
 
 timeout: 1000s
 tags: ['docker_build']
