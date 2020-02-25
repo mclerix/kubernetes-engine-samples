@@ -1,31 +1,31 @@
 steps:
 # Build the application image
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'Dockerfile', '--tag=gcr.io/$PROJECT_ID/hello-app:latest', '.']
-  timeout: 500s
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/hello-app:latest']
-
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: ['set', 'image', 'deployment/helloweb', 'hello-app=gcr.io/$PROJECT_ID/hello-app:latest', '-n', 'hello']
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=gke-loreal'
-
 # - name: 'gcr.io/cloud-builders/docker'
-#   args: ['build', '-f', 'Dockerfile', '--tag=gcr.io/$PROJECT_ID/hello-app:$SHORT_SHA', '.']
+#   args: ['build', '-f', 'Dockerfile', '--tag=gcr.io/$PROJECT_ID/hello-app:latest', '.']
 #   timeout: 500s
 
 # - name: 'gcr.io/cloud-builders/docker'
-#   args: ['push', 'gcr.io/$PROJECT_ID/hello-app:$SHORT_SHA']
+#   args: ['push', 'gcr.io/$PROJECT_ID/hello-app:latest']
 
 # - name: 'gcr.io/cloud-builders/kubectl'
-#   args: ['set', 'image', 'deployment/hello-web', 'hello-app=gcr.io/$PROJECT_ID/hello-app:$SHORT_SHA']
+#   args: ['set', 'image', 'deployment/helloweb', 'hello-app=gcr.io/$PROJECT_ID/hello-app:latest', '-n', 'hello']
 #   env:
 #   - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
 #   - 'CLOUDSDK_CONTAINER_CLUSTER=gke-loreal'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-f', 'hello-app/Dockerfile', '--tag=gcr.io/$PROJECT_ID/hello-app:$SHORT_SHA', '.']
+  timeout: 500s
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/hello-app:$SHORT_SHA']
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['set', 'image', 'deployment/hello-web', 'hello-app=gcr.io/$PROJECT_ID/hello-app:$SHORT_SHA']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=gke-loreal'
 
 timeout: 1000s
 tags: ['docker_build']
